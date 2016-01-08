@@ -28,4 +28,9 @@
 
 ;;;brackets
 (setq c-default-style "linux"
-                c-basic-offset 4)
+      c-basic-offset 4)
+
+;;Company Mode auto complete
+(autoload 'company-mode "company" nil t)
+(add-hook 'after-init-hook 'global-company-mode)
+(global-set-key (kbd "TAB") 'company-complete)

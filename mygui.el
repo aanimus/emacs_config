@@ -1,7 +1,7 @@
 (set-frame-parameter nil 'fullscreen 'fullboth) ;fullscreen
 
 (global-linum-mode 1)
-(setq linum-format "%4d \u2502")
+(setq linum-format "%4d ")
 (menu-bar-mode -1)
 
 (condition-case nil
@@ -34,3 +34,11 @@
    '(mode-line ((t (:foreground "#f9f9f9" :background "#6666e6" :box nil))))
    '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666676" :box nil)))))
   )
+
+;;;FONT
+(add-to-list 'default-frame-alist
+	     '(font . "Inconsolata-15"))
+(set-face-attribute 'default t :font "Inconsolata-15")
+
+;;;LINUM COLOR
+(set-face-attribute 'linum nil :foreground "#667066")
