@@ -37,10 +37,6 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "TAB") 'company-complete)
 
-;;;company cheaders
-(with-eval-after-load 'company
-   (add-to-list 'company-backends 'company-c-headers))
-
 ;;;YASNIPPET
 (yas-global-mode 1)
 
@@ -59,3 +55,28 @@
     'irony-completion-at-point-async))
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+;;;Company Irony
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+(global-set-key (kbd "<backtab>") 'company-c-headers )
+
+
+;;;Other stuff:
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("47ac4658d9e085ace37e7d967ea1c7d5f3dfeb2f720e5dec420034118ba84e17" default)))
+ '(irony-additional-clang-options nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(mode-line ((t (:foreground "#f9f9f9" :background "#6666e6" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666676" :box nil)))))
