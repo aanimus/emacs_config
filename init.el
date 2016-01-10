@@ -26,11 +26,36 @@
 (global-set-key (kbd "<s-right>") 'end-of-line )
 (global-set-key (kbd "<s-left>") 'beginning-of-line )
 
-;;;brackets
-(setq c-default-style "linux"
-      c-basic-offset 4)
+(defun my-c-mode-hook ()
+  (setq c-basic-offset 4
+        c-indent-level 4
+        c-default-style "linux"))
+(add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
-;;Company Mode auto complete
+;;;Company Mode auto complete
 (autoload 'company-mode "company" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "TAB") 'company-complete)
+
+;;;company cheaders
+(with-eval-after-load 'company
+   (add-to-list 'company-backends 'company-c-headers))
+
+;;;YASNIPPET
+(yas-global-mode 1)
+
+;;;IRONY auto
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+
+;;;IRONY hook
+;; replace the `completion-at-point' and `complete-symbol' bindings in
+;; irony-mode's buffers by irony-mode's function
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
