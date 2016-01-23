@@ -14,7 +14,9 @@
 (when (>= emacs-major-version 24)
   (require 'package)
   (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/")))
+	       '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives
+	       '("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
 (setq inhibit-splash-screen t)
@@ -26,6 +28,7 @@
 (global-set-key (kbd "<s-right>") 'end-of-line )
 (global-set-key (kbd "<s-left>") 'beginning-of-line )
 
+;;;C brackets
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
         c-indent-level 4
@@ -35,10 +38,15 @@
 ;;;Company Mode auto complete
 (autoload 'company-mode "company" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "TAB") 'company-complete)
+(global-set-key (kbd "C-SPC") 'company-complete)
 
 ;;;YASNIPPET
 (yas-global-mode 1)
+
+;;;NEO-TREE
+(add-to-list 'load-path "~/.emacs.d/neotree/")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
 
 ;;;IRONY auto
 (add-hook 'c++-mode-hook 'irony-mode)
@@ -59,7 +67,18 @@
 ;;;Company Irony
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
-(global-set-key (kbd "<backtab>") 'company-c-headers )
+
+;;;company-c-headers
+(require 'company-c-headers)
+(global-set-key (kbd "C-x C-SPC") 'company-c-headers )
+(add-to-list 'company-c-headers-path-system "/usr/local/Cellar/llvm/3.6.2/include/c++/v1")
+
+
+
+;;;cmake-ide
+;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
+;(require 'cmake-ide)
+;(cmake-ide-setup)
 
 
 ;;;Other stuff:

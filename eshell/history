@@ -1,0 +1,9 @@
+echo a
+ls
+git
+git add -A
+git commit -m "changed snkd share url"
+git push -u origin master
+julis
+julia
+julia

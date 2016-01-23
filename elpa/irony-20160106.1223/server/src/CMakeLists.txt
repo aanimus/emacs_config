@@ -1,6 +1,6 @@
 include(CheckLibClangBuiltinHeadersDir)
 
-find_package(LibClang REQUIRED)
+#find_package(LibClang REQUIRED)
 
 include_directories(${LIBCLANG_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

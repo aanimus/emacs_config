@@ -37,8 +37,8 @@
 
 ;;;FONT
 (add-to-list 'default-frame-alist
-	     '(font . "Inconsolata-15"))
-(set-face-attribute 'default t :font "Inconsolata-15")
+	     '(font . "Inconsolata-16"))
+(set-face-attribute 'default t :font "Inconsolata-16")
 
 ;;;LINUM COLOR
 (set-face-attribute 'linum nil :foreground "#667066")
