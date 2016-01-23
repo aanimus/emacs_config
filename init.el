@@ -13,10 +13,9 @@
 ;;;PACKAGE MANAGER
 (when (>= emacs-major-version 24)
   (require 'package)
-  (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/"))
-  (add-to-list 'package-archives
-	       '("marmalade" . "http://marmalade-repo.org/packages/")))
+  (setq package-archives '(
+			   ("melpa" . "https://melpa.org/packages/")
+			   ("marmalade" . "http://marmalade-repo.org/packages/"))))
 (package-initialize)
 
 (setq inhibit-splash-screen t)
@@ -35,6 +34,16 @@
         c-default-style "linux"))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
+;;;JS
+(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
+(add-to-list 'load-path "~/.emacs.d/node_modules/tern/emacs")
+(autoload 'tern-mode "tern.el" nil t)
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+
+;;;JS company tern
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-tern))
+
 ;;;Company Mode auto complete
 (autoload 'company-mode "company" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -44,6 +53,7 @@
 (yas-global-mode 1)
 
 ;;;NEO-TREE
+;;;f8 for neotree
 (add-to-list 'load-path "~/.emacs.d/neotree/")
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
