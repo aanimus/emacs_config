@@ -21,7 +21,7 @@
 (setq inhibit-splash-screen t)
 
 ;;;GUI
-(load "~/.emacs.d/myGui.el")
+(load "~/.emacs.d/my_gui.el")
 
 ;;;KEYS END OF LINE, BEGIN OF LINE
 (global-set-key (kbd "<s-right>") 'end-of-line )
