@@ -34,6 +34,9 @@
         c-default-style "linux"))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
+;;ruby indent
+(setq ruby-indent-level 4)
+
 ;;;JS
 (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (add-to-list 'load-path "~/.emacs.d/node_modules/tern/emacs")
@@ -83,6 +86,29 @@
 (global-set-key (kbd "C-x C-SPC") 'company-c-headers )
 (add-to-list 'company-c-headers-path-system "/usr/local/Cellar/llvm/3.6.2/include/c++/v1")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;OCAML
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Add opam emacs directory to the load-path
+(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;; Load merlin-mode
+(require 'merlin)
+;; Start merlin on ocaml files
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+;; Enable auto-complete
+(setq merlin-use-auto-complete-mode 'easy)
+;; Use opam switch to lookup ocamlmerlin binary
+(setq merlin-command 'opam)
+
+;;;EVIL-MODE
+(evil-mode 1)
+
+;;;EVIL-MC
+(add-to-list 'load-path "~/.emacs.d/evil-mc")
+(require 'evil-mc)
+
 
 
 ;;;cmake-ide
@@ -90,9 +116,9 @@
 ;(require 'cmake-ide)
 ;(cmake-ide-setup)
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;Other stuff:
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -100,8 +126,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("47ac4658d9e085ace37e7d967ea1c7d5f3dfeb2f720e5dec420034118ba84e17" default)))
- '(irony-additional-clang-options nil))
+    ("705f3f6154b4e8fac069849507fd8b660ece013b64a0a31846624ca18d6cf5e1" "e87a2bd5abc8448f8676365692e908b709b93f2d3869c42a4371223aab7d9cf8" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
