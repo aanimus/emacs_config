@@ -26,9 +26,12 @@
   )
 
 ;;;FONT
-(add-to-list 'default-frame-alist
-	     '(font . "Inconsolata-15"))
-(set-face-attribute 'default t :font "Inconsolata-15")
+(condition-case nil
+    (progn
+      (add-to-list 'default-frame-alist
+		   '(font . "Inconsolata-15"))
+      (set-face-attribute 'default t :font "Inconsolata-15"))
+(error nil))
 (setq-default line-spacing 2)
 
 ;;;LINUM COLOR
