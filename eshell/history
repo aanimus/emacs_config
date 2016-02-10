@@ -68,4 +68,3 @@ git submodule
 git submodule
 git submodule add https://github.com/gabesoft/evil-mc.git
 ls -l
-lua

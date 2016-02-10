@@ -107,9 +107,14 @@
 
 ;;;EVIL-MC
 (add-to-list 'load-path "~/.emacs.d/evil-mc")
-(require 'evil-mc)
+(require 'evil-mc) 
 
+;;;tab for CS3110
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
 
+(global-set-key (kbd "C-x c") 'clipboard-kill-region)
+(global-set-key (kbd "C-x v") 'clipboard-yank)
 
 ;;;cmake-ide
 ;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
