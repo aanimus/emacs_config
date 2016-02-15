@@ -2,3 +2,4 @@ auto-save-list
 
 #run irony-install-server to compile irony server
 irony
+eshell
