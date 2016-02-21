@@ -4,6 +4,9 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
 
+;;;ido-mode
+(ido-mode t)
+
 ;;;BACKUP DIR
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
