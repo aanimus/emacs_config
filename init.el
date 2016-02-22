@@ -4,9 +4,6 @@
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
 
-;;;ido-mode
-(ido-mode t)
-
 ;;;BACKUP DIR
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -118,6 +115,10 @@
 
 (global-set-key (kbd "C-x c") 'clipboard-kill-region)
 (global-set-key (kbd "C-x v") 'clipboard-yank)
+
+;;;LOCATE BINDING C-c l
+(add-hook 'merlin-mode-hook
+          (lambda () (local-set-key (kbd "C-c l") 'merlin-locate) ))
 
 ;;;cmake-ide
 ;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
