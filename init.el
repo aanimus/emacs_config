@@ -120,6 +120,13 @@
 (add-hook 'merlin-mode-hook
           (lambda () (local-set-key (kbd "C-c l") 'merlin-locate) ))
 
+;;;undo/redo
+(global-set-key (kbd "s-z") 'undo-tree-undo)
+(global-set-key (kbd "s-r") 'undo-tree-redo)
+
+;;;highlight paren
+(highlight-parentheses-mode t)
+
 ;;;cmake-ide
 ;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
 ;(require 'cmake-ide)
