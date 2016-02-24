@@ -124,6 +124,9 @@
 (global-set-key (kbd "s-z") 'undo-tree-undo)
 (global-set-key (kbd "s-r") 'undo-tree-redo)
 
+;;;buffer kill
+(global-set-key (kbd "s-k") 'kill-this-buffer)
+
 ;;;highlight paren
 (highlight-parentheses-mode t)
 
