@@ -124,8 +124,14 @@
 (global-set-key (kbd "s-z") 'undo-tree-undo)
 (global-set-key (kbd "s-r") 'undo-tree-redo)
 
+;;;copy/paste
+(global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+(global-set-key (kbd "s-v") 'clipboard-yank)
+
 ;;;highlight paren
 (highlight-parentheses-mode t)
+;;;ido
+(ido-mode 'buffers)
 
 ;;;cmake-ide
 ;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
