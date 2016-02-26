@@ -124,6 +124,9 @@
 (global-set-key (kbd "s-z") 'undo-tree-undo)
 (global-set-key (kbd "s-r") 'undo-tree-redo)
 
+;;;buffer kill
+(global-set-key (kbd "s-k") 'kill-this-buffer)
+
 ;;;copy/paste
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'clipboard-yank)
