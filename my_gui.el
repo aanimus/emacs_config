@@ -1,4 +1,3 @@
-(set-frame-parameter nil 'fullscreen 'fullboth) ;fullscreen
 
 (global-linum-mode 1)
 (setq linum-format "%4d ")
