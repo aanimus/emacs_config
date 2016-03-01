@@ -43,10 +43,6 @@
 (autoload 'tern-mode "tern.el" nil t)
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
-;;;JS company tern
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-tern))
-
 ;;;Company Mode auto complete
 (autoload 'company-mode "company" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -79,9 +75,10 @@
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;;;Company Irony
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-irony)
+  (add-to-list 'company-backends 'company-tern)
+  (add-to-list 'company-backends 'company-sourcekit))
 
 ;;;company-c-headers
 (require 'company-c-headers)
