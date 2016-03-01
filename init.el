@@ -54,6 +54,8 @@
 
 ;;;YASNIPPET
 (yas-global-mode 1)
+(eval-after-load 'company
+  'add-to-list 'company-backends 'company-yasnippet)
 
 ;;;NEO-TREE
 ;;;f8 for neotree
@@ -132,7 +134,7 @@
 (global-set-key (kbd "s-v") 'clipboard-yank)
 
 ;;;highlight paren
-(highlight-parentheses-mode t)
+(highlight-parentheses-mode)
 ;;;ido
 (ido-mode 'buffers)
 
