@@ -50,8 +50,6 @@
 
 ;;;YASNIPPET
 (yas-global-mode 1)
-(eval-after-load 'company
-  'add-to-list 'company-backends 'company-yasnippet)
 
 ;;;NEO-TREE
 ;;;f8 for neotree
@@ -78,7 +76,8 @@
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-irony)
   (add-to-list 'company-backends 'company-tern)
-  (add-to-list 'company-backends 'company-sourcekit))
+  (add-to-list 'company-backends 'company-sourcekit)
+  (add-to-list 'company-backends '(merlin-company-backend company-yasnippet)))
 
 ;;;company-c-headers
 (require 'company-c-headers)
@@ -97,7 +96,7 @@
 (add-hook 'tuareg-mode-hook 'merlin-mode t)
 (add-hook 'caml-mode-hook 'merlin-mode t)
 ;; Enable auto-complete
-(setq merlin-use-auto-complete-mode 'easy)
+;;;(setq merlin-use-auto-complete-mode 'easy)
 ;; Use opam switch to lookup ocamlmerlin binary
 (setq merlin-command 'opam)
 
