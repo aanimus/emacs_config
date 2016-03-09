@@ -73,11 +73,12 @@
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
+;;;COMPANY-BACKENDS
 (with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-irony)
+  (add-to-list 'company-backends '(company-irony :with company-yasnippet))
   (add-to-list 'company-backends 'company-tern)
   (add-to-list 'company-backends 'company-sourcekit)
-  (add-to-list 'company-backends '(merlin-company-backend company-yasnippet)))
+  (add-to-list 'company-backends '(merlin-company-backend :with company-yasnippet)))
 
 ;;;company-c-headers
 (require 'company-c-headers)
