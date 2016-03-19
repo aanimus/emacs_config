@@ -75,10 +75,11 @@
 
 ;;;COMPANY-BACKENDS
 (with-eval-after-load 'company
-  (add-to-list 'company-backends '(company-irony :with company-yasnippet))
+  (add-to-list 'company-backends 'company-irony)
   (add-to-list 'company-backends 'company-tern)
   (add-to-list 'company-backends 'company-sourcekit)
-  (add-to-list 'company-backends '(merlin-company-backend :with company-yasnippet)))
+  (add-to-list 'company-backends 'merlin-company-backend)
+  (global-set-key (kbd "C-c C-SPC") 'company-yasnippet))
 
 ;;;company-c-headers
 (require 'company-c-headers)
