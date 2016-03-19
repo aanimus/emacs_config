@@ -1,9 +1,6 @@
 [submodule "cmIDE/cmake-ide"]
 	path = cmIDE/cmake-ide
 	url = https://github.com/atilaneves/cmake-ide.git
-[submodule "rtags"]
-	path = rtags
-	url = https://github.com/Andersbakken/rtags.git
 [submodule "neotree"]
 	path = neotree
 	url = https://github.com/jaypei/emacs-neotree.git
