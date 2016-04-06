@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 rustc main.rs
 rustc main.rs
 rustc main.rs
@@ -126,3 +127,5 @@ rustc neuralnet.rs
 rustc neuralnet.rs 
 rustc neuralnet.rs 
 rustc neuralnet.rs 
+=======
+>>>>>>> 812eb35131c157f8aec2341589c33c0e55f4345b
