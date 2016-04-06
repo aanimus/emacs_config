@@ -1,74 +1,128 @@
-echo a
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+clear
+rustc main.rs
+clear
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
 ls
-git
-git add -A
-git commit -m "changed snkd share url"
-git push -u origin master
-julis
-julia
-julia
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-ruby main.rb
-irb
-ruby main.rb
-irb
-latex2html 
-latex2html test.tex
-ocaml
-ocamlbuild main.ml 
-ls
-ls
-ocamlbuild main.native
-open .
-ls
-ocamlc main.native
-ocamlc main.native
-ocaml main.native
-ocaml main.ml
-ocaml main.ml
-ocaml main.ml
-ocaml main.ml
-ocaml main.ml
-ocamlc main.ml
-ls
-ocamlc -o mainFile main.ml
-ocamlc main.native
-ocamlopt main.ml
-ocamlopt main.native
-ocaml main.native
-make
-ls
-rm -f execMain.cmi execMain.cmo
-ls
-make
-ls
-make
-make clean
-./execMain 
-ls
-git
-git submodule
-git submodule
-git submodule add https://github.com/gabesoft/evil-mc.git
-ls -l
-ls
-lua main.lua 
-lua main.lua 
-utop
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+./main 
+rustc main.rs
+rustc main.rs
+./main 

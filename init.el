@@ -1,10 +1,10 @@
 ;;;PATH
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/"))
-(setenv "PATH" (concat (getenv "PATH") ":~/Developer/utils"))
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "~/Developer/utils")
-(add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
+;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+;(setenv "PATH" (concat (getenv "PATH") ":/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/"))
+;(setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
+;(add-to-list 'exec-path "/usr/local/bin")
+;(add-to-list 'exec-path "~/.cargo/bin")
+;(add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
 
 ;;;BACKUP DIR
 (setq backup-directory-alist
@@ -20,6 +20,10 @@
 			   ("marmalade" . "http://marmalade-repo.org/packages/"))))
 (package-initialize)
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
+
 (setq inhibit-splash-screen t)
 
 ;;;GUI
@@ -33,7 +37,7 @@
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
         c-indent-level 4
-        c-default-style "linux"))
+        c-default-style "gnu"))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
 ;;ruby indent
@@ -75,6 +79,10 @@
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
+;;;RUST RACER
+(add-hook 'rust-mode-hook 'racer-mode t)
+(setq racer-rust-src-path "/Users/serge-olivieramega/Developer/Open/rustc-1.7.0/src/")
+
 ;;;COMPANY-BACKENDS
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-irony)
@@ -106,6 +114,10 @@
 
 ;;;EVIL-MODE
 (evil-mode 1)
+
+;;;EVIL-LEADER
+(evil-leader-mode 1)
+(evil-leader/set-leader "<SPC>")
 
 ;;;EVIL-MC
 (add-to-list 'load-path "~/.emacs.d/evil-mc")
@@ -163,11 +175,16 @@
         (t (message "cannot find symbol summary for this mode."))))
 
 ;;;EVIL keybindings
-(define-key evil-normal-state-map (kbd "gl") 'locate-symbol-at-point)
-(define-key evil-normal-state-map (kbd "gt") 'show-symbol-type-at-point)
-(define-key evil-normal-state-map (kbd "g[") 'show-symbol-info-at-point)
-(define-key evil-normal-state-map (kbd "g]") 'show-symbol-summary-at-point)
+(define-key evil-normal-state-map (kbd "<SPC>rj") 'locate-symbol-at-point)
+(define-key evil-normal-state-map (kbd "<SPC>ri") 'show-symbol-info-at-point)
 
+;;;EVIL kbd evil-mc
+(global-evil-mc-mode 1)
+(define-key evil-normal-state-map (kbd "zu") 'evil-mc-pause-cursors)
+(define-key evil-normal-state-map (kbd "zi") 'evil-mc-resume-cursors)
+(define-key evil-normal-state-map (kbd "zy") 'evil-mc-make-cursor-here)
+(define-key evil-normal-state-map (kbd "zj") 'evil-mc-undo-all-cursors)
+(define-key evil-normal-state-map (kbd "zk") 'evil-mc-make-all-cursors)
 
 ;;g p --> rtags prev
 ;;g o --> rtags next
