@@ -72,3 +72,4 @@ ls
 lua main.lua 
 lua main.lua 
 utop
+ls
