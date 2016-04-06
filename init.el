@@ -1,8 +1,10 @@
 ;;;PATH
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/"))
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
+;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+;(setenv "PATH" (concat (getenv "PATH") ":/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/"))
+;(setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
+;(add-to-list 'exec-path "/usr/local/bin")
+;(add-to-list 'exec-path "~/.cargo/bin")
+;(add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
 
 ;;;BACKUP DIR
 (setq backup-directory-alist
@@ -18,6 +20,10 @@
 			   ("marmalade" . "http://marmalade-repo.org/packages/"))))
 (package-initialize)
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
+
 (setq inhibit-splash-screen t)
 
 ;;;GUI
@@ -31,7 +37,7 @@
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
         c-indent-level 4
-        c-default-style "linux"))
+        c-default-style "gnu"))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
 ;;ruby indent
@@ -73,6 +79,10 @@
 (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
+;;;RUST RACER
+(add-hook 'rust-mode-hook 'racer-mode t)
+(setq racer-rust-src-path "/Users/serge-olivieramega/Developer/Open/rustc-1.7.0/src/")
+
 ;;;COMPANY-BACKENDS
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-irony)
@@ -105,6 +115,10 @@
 ;;;EVIL-MODE
 (evil-mode 1)
 
+;;;EVIL-LEADER
+(evil-leader-mode 1)
+(evil-leader/set-leader "<SPC>")
+
 ;;;EVIL-MC
 (add-to-list 'load-path "~/.emacs.d/evil-mc")
 (require 'evil-mc) 
@@ -130,6 +144,51 @@
 ;;;copy/paste
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'clipboard-yank)
+
+(defun locate-symbol-at-point ()
+  "locates symbol at current point"
+  (interactive)
+  (cond ((bound-and-true-p irony-mode) (rtags-find-symbol-at-point))
+        ((bound-and-true-p merlin-mode) (merlin-locate))
+        (t (message "cannot locate in this mode"))))
+
+(defun show-symbol-type-at-point ()
+  "shows type for symbol at current point"
+  (interactive)
+  (cond ((bound-and-true-p irony-mode) (rtags-symbol-type))
+        ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
+        (t (message "cannot find symbol type for this mode."))))
+
+
+(defun show-symbol-info-at-point ()
+  "shows type for symbol at current point"
+  (interactive)
+  (cond ((bound-and-true-p irony-mode) (rtags-print-symbol-info))
+        ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
+        (t (message "cannot find symbol info for this mode."))))
+
+(defun show-symbol-summary-at-point ()
+  "shows type for symbol at current point"
+  (interactive)
+  (cond ((bound-and-true-p irony-mode) (rtags-display-summary))
+        ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
+        (t (message "cannot find symbol summary for this mode."))))
+
+;;;EVIL keybindings
+(define-key evil-normal-state-map (kbd "<SPC>rj") 'locate-symbol-at-point)
+(define-key evil-normal-state-map (kbd "<SPC>ri") 'show-symbol-info-at-point)
+
+;;;EVIL kbd evil-mc
+(global-evil-mc-mode 1)
+(define-key evil-normal-state-map (kbd "zu") 'evil-mc-pause-cursors)
+(define-key evil-normal-state-map (kbd "zi") 'evil-mc-resume-cursors)
+(define-key evil-normal-state-map (kbd "zy") 'evil-mc-make-cursor-here)
+(define-key evil-normal-state-map (kbd "zj") 'evil-mc-undo-all-cursors)
+(define-key evil-normal-state-map (kbd "zk") 'evil-mc-make-all-cursors)
+
+;;g p --> rtags prev
+;;g o --> rtags next
+
 
 ;;;highlight paren
 (highlight-parentheses-mode)
