@@ -2,4 +2,9 @@ auto-save-list
 
 #run irony-install-server to compile irony server
 irony
+
+elpa/archives/
+
 eshell
+eshell/history/
+eshell/**

@@ -28,8 +28,8 @@
 (condition-case nil
     (progn
       (add-to-list 'default-frame-alist
-		   '(font . "Inconsolata-15"))
-      (set-face-attribute 'default t :font "Inconsolata-15"))
+		   '(font . "Inconsolata-14"))
+      (set-face-attribute 'default t :font "Inconsolata-14"))
 (error nil))
 (setq-default line-spacing 2)
 
