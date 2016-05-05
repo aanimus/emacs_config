@@ -16,11 +16,11 @@
   (require 'powerline)
   (powerline-default-theme)
 
+  (load-theme 'atom-one-dark t)
+  
   (custom-set-faces
    '(mode-line ((t (:foreground "#f9f9f9" :background "#ffa000" :box nil))))
-   '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666676" :box nil)))))
-
-  (load-theme 'atom-one-dark t))
+   '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666676" :box nil))))))
 
 ;;;FONT
 (condition-case nil
