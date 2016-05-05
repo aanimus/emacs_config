@@ -17,24 +17,25 @@
   (powerline-default-theme)
 
   (custom-set-faces
-   '(mode-line ((t (:foreground "#f9f9f9" :background "#6666e6" :box nil))))
+   '(mode-line ((t (:foreground "#f9f9f9" :background "#ffa000" :box nil))))
    '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666676" :box nil)))))
 
-  (load-theme 'atom-one-dark t)
-
-  )
+  (load-theme 'atom-one-dark t))
 
 ;;;FONT
 (condition-case nil
     (progn
       (add-to-list 'default-frame-alist
-		   '(font . "Inconsolata-15"))
-      (set-face-attribute 'default t :font "Inconsolata-15"))
+		   '(font . "Inconsolata-15:weight=bold"))
+      (set-face-attribute 'default t :font "Inconsolata-15:weight=bold"))
 (error nil))
 (setq-default line-spacing 2)
 
 ;;;LINUM COLOR
-(set-face-attribute 'linum nil :foreground "#667066")
+(set-face-attribute 'linum nil :foreground "#446")
+
+;;;SCROLL STEP
+(setq scroll-step 1)
 
 ;;;colors.
 (set-face-attribute 'font-lock-type-face nil :foreground "#C678DD")
