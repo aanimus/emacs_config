@@ -17,8 +17,27 @@
   (require 'package)
   (setq package-archives '(
 			   ("melpa" . "https://melpa.org/packages/")
+                           ("org" . "http://orgmode.org/elpa/")
 			   ("marmalade" . "http://marmalade-repo.org/packages/"))))
 (package-initialize)
+
+(require 'evil-org)
+
+;;;org odt
+(eval-after-load "org"
+  '(require 'ox-odt nil t))
+(setq org-tags-column 0)
+
+;;;ORG
+(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
+(add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp")
+(require 'org)
+
+(defun org-remove-headlines (backend)
+  "Remove headlines with :no_title: tag."
+  (org-map-entries (lambda () (delete-region (point-at-bol) (point-at-eol)))
+                   "ign"))
+(add-hook 'org-export-before-processing-hook #'org-remove-headlines)
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -64,9 +83,9 @@
 (global-set-key [f8] 'neotree-toggle)
 
 ;;;IRONY auto
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
+;(add-hook 'c++-mode-hook 'irony-mode)
+;(add-hook 'c-mode-hook 'irony-mode)
+;(add-hook 'objc-mode-hook 'irony-mode)
 
 ;;;IRONY hook
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
@@ -85,10 +104,12 @@
 
 ;;;COMPANY-BACKENDS
 (with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-irony)
-  (add-to-list 'company-backends 'company-tern)
+  ;(add-to-list 'company-backends 'company-irony)
+  (add-to-list 'company-backends 'company-rtags)
   (add-to-list 'company-backends 'company-sourcekit)
   (add-to-list 'company-backends 'merlin-company-backend)
+  (add-to-list 'company-backends 'company-css)
+  (add-to-list 'company-backends 'company-tern)
   (global-set-key (kbd "C-c C-SPC") 'company-yasnippet))
 
 ;;;company-c-headers
@@ -121,7 +142,7 @@
 
 ;;;EVIL-MC
 (add-to-list 'load-path "~/.emacs.d/evil-mc")
-(require 'evil-mc) 
+(require 'evil-mc)
 
 ;;;tab for CS3110
 (setq-default indent-tabs-mode nil)
@@ -145,17 +166,20 @@
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'clipboard-yank)
 
+(require 'rtags)
+(require 'company-rtags)
+(setq rtags-completions-enabled t)
 (defun locate-symbol-at-point ()
   "locates symbol at current point"
   (interactive)
-  (cond ((bound-and-true-p irony-mode) (rtags-find-symbol-at-point))
+  (cond ((bound-and-true-p c++-mode) (rtags-find-symbol-at-point))
         ((bound-and-true-p merlin-mode) (merlin-locate))
         (t (message "cannot locate in this mode"))))
 
 (defun show-symbol-type-at-point ()
   "shows type for symbol at current point"
   (interactive)
-  (cond ((bound-and-true-p irony-mode) (rtags-symbol-type))
+  (cond ((bound-and-true-p c++-mode) (rtags-symbol-type))
         ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
         (t (message "cannot find symbol type for this mode."))))
 
@@ -163,14 +187,14 @@
 (defun show-symbol-info-at-point ()
   "shows type for symbol at current point"
   (interactive)
-  (cond ((bound-and-true-p irony-mode) (rtags-print-symbol-info))
+  (cond ((bound-and-true-p c++-mode) (rtags-print-symbol-info))
         ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
         (t (message "cannot find symbol info for this mode."))))
 
 (defun show-symbol-summary-at-point ()
   "shows type for symbol at current point"
   (interactive)
-  (cond ((bound-and-true-p irony-mode) (rtags-display-summary))
+  (cond ((bound-and-true-p c++-mode) (rtags-display-summary))
         ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
         (t (message "cannot find symbol summary for this mode."))))
 
@@ -186,12 +210,17 @@
 (define-key evil-normal-state-map (kbd "zj") 'evil-mc-undo-all-cursors)
 (define-key evil-normal-state-map (kbd "zk") 'evil-mc-make-all-cursors)
 
+(setq key-chord-two-keys-delay 0.5)
+(key-chord-define evil-insert-state-map (kbd "jj") 'evil-force-normal-state)
+(key-chord-mode 1)
+
 ;;g p --> rtags prev
 ;;g o --> rtags next
 
 
 ;;;highlight paren
 (highlight-parentheses-mode)
+
 ;;;ido
 (ido-mode 'buffers)
 
@@ -210,7 +239,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("705f3f6154b4e8fac069849507fd8b660ece013b64a0a31846624ca18d6cf5e1" "e87a2bd5abc8448f8676365692e908b709b93f2d3869c42a4371223aab7d9cf8" default))))
+    ("ea489f6710a3da0738e7dbdfc124df06a4e3ae82f191ce66c2af3e0a15e99b90" "28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" "705f3f6154b4e8fac069849507fd8b660ece013b64a0a31846624ca18d6cf5e1" "e87a2bd5abc8448f8676365692e908b709b93f2d3869c42a4371223aab7d9cf8" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

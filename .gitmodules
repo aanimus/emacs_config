@@ -7,3 +7,6 @@
 [submodule "evil-mc"]
 	path = evil-mc
 	url = https://github.com/gabesoft/evil-mc.git
+[submodule "org-mode"]
+	path = org-mode
+	url = https://github.com/noorul/org-mode.git

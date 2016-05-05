@@ -1,12 +1,8 @@
-;; -*- emacs-lisp -*- <16/02/05 19:05:51 /Users/serge-olivieramega/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <16/04/16 01:53:45 /Users/serge-olivieramega/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
-((["scp" nil "ssh" nil nil]
-  nil)
- (["ssh" "vagrant" "localhost" nil nil]
-  nil)
- (["ssh" "vagrant" "localhost#2222" nil nil]
+((["ssh" "vagrant" "localhost#2222" nil nil]
   ("locale" "LC_ALL=en_US.utf8")
   ("uname" "Linux 4.2.0-25-generic")
   ("test" "test")
@@ -24,4 +20,8 @@
   ("gid-integer" 1000)
   ("readlink" "\\readlink")
   ("gid-string" "vagrant")
-  ("uid-integer" 1000)))
+  ("uid-integer" 1000))
+ (["scp" nil "ssh" nil nil]
+  nil)
+ (["ssh" "vagrant" "localhost" nil nil]
+  nil))
