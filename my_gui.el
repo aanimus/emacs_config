@@ -17,6 +17,10 @@
   (powerline-default-theme)
 
   (load-theme 'atom-one-dark t)
+
+  ;(when (eq system-type 'darwin)
+  ;  (add-to-list 'default-frame-alist '(alpha 97 97))
+  ;  (set-frame-parameter (selected-frame) 'alpha '(97 97)))
   
   (custom-set-faces
    '(mode-line ((t (:foreground "#f9f9f9" :background "#ffa000" :box nil))))
@@ -26,9 +30,10 @@
 (condition-case nil
     (progn
       (add-to-list 'default-frame-alist
-		   '(font . "Inconsolata-15:weight=bold"))
-      (set-face-attribute 'default t :font "Inconsolata-15:weight=bold"))
-(error nil))
+		   '(font . "Inconsolata-15:weight=regular"))
+      (set-face-attribute 'default t
+                          :font "Inconsolata-15:weight=regular"))
+  (error nil))
 (setq-default line-spacing 2)
 
 ;;;LINUM COLOR
@@ -38,11 +43,24 @@
 (setq scroll-step 1)
 
 ;;;colors.
-(set-face-attribute 'font-lock-type-face nil :foreground "#C678DD")
+(set-face-attribute 'font-lock-type-face nil :foreground "#FF6670")
 (set-face-attribute 'font-lock-constant-face nil :foreground "#60ADEB")
 (set-face-attribute 'font-lock-function-name-face nil :foreground "#8888EE")
 (set-face-attribute 'font-lock-keyword-face nil :foreground "#8888ff")
 (set-face-attribute 'font-lock-preprocessor-face nil :foreground "#aa88ff")
 (set-face-attribute 'font-lock-string-face nil :foreground "#ddcc66")
-(set-face-attribute 'font-lock-variable-name-face nil :foreground "#ee7777")
+(set-face-attribute 'font-lock-variable-name-face nil :foreground "#FF9457")
 (set-face-attribute 'font-lock-warning-face nil :foreground "#ff7777")
+
+
+(setq fgnd "#eebbee")
+(setq backgnd "#0a0a19")
+(add-to-list 'default-frame-alist '(background-color . backgnd))
+(set-face-attribute 'default nil
+                    :foreground fgnd
+                    :background backgnd)
+(set-face-attribute 'fringe nil
+                    :background backgnd)
+
+(set-frame-parameter (selected-frame) 'alpha '(90 90))
+(add-to-list 'default-frame-alist '(alpha 90 90))

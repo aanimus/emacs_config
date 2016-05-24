@@ -73,6 +73,9 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "C-SPC") 'company-complete)
 
+;;;Compile key
+(global-set-key (kbd "C-c c") 'compile)
+
 ;;;YASNIPPET
 (yas-global-mode 1)
 
@@ -116,22 +119,6 @@
 (require 'company-c-headers)
 (global-set-key (kbd "C-x C-SPC") 'company-c-headers )
 (add-to-list 'company-c-headers-path-system "/usr/local/Cellar/llvm/3.6.2/include/c++/v1")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;OCAML
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Add opam emacs directory to the load-path
-(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-;; Load merlin-mode
-(require 'merlin)
-;; Start merlin on ocaml files
-(add-hook 'tuareg-mode-hook 'merlin-mode t)
-(add-hook 'caml-mode-hook 'merlin-mode t)
-;; Enable auto-complete
-;;;(setq merlin-use-auto-complete-mode 'easy)
-;; Use opam switch to lookup ocamlmerlin binary
-(setq merlin-command 'opam)
 
 ;;;EVIL-MODE
 (evil-mode 1)
@@ -219,10 +206,16 @@
 
 
 ;;;highlight paren
-(highlight-parentheses-mode)
+(global-highlight-parentheses-mode)
 
 ;;;ido
 (ido-mode 'buffers)
+
+;;;Org Mode
+(add-hook 'org-mode-hook
+          (lambda ()
+            (toggle-truncate-lines -1)
+            (visual-line-mode 1)))
 
 ;;;cmake-ide
 ;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
@@ -232,18 +225,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;Other stuff:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("ea489f6710a3da0738e7dbdfc124df06a4e3ae82f191ce66c2af3e0a15e99b90" "28ec8ccf6190f6a73812df9bc91df54ce1d6132f18b4c8fcc85d45298569eb53" "705f3f6154b4e8fac069849507fd8b660ece013b64a0a31846624ca18d6cf5e1" "e87a2bd5abc8448f8676365692e908b709b93f2d3869c42a4371223aab7d9cf8" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mode-line ((t (:foreground "#f9f9f9" :background "#ffa000" :box nil))))
- '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666676" :box nil)))))
+;;;CUSTOM
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)

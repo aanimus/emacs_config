@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         evil-backward-char
+        evil-force-normal-state
         evil-forward-char
         evil-insert
         evil-normal-state
@@ -12,5 +13,6 @@
 
 (setq mc/cmds-to-run-once
       '(
+        evil-ex
         evil-next-line
         ))
