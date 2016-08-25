@@ -1,34 +1,22 @@
-;;;PATH
-;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-;(setenv "PATH" (concat (getenv "PATH") ":/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/"))
-;(setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
-;(add-to-list 'exec-path "/usr/local/bin")
-;(add-to-list 'exec-path "~/.cargo/bin")
-;(add-to-list 'exec-path "/Applications/Julia-0.4.1.app/Contents/Resources/julia/bin/")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;;;BACKUP DIR
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-            `((".*" ,temporary-file-directory t)))
+      `((".*" ,temporary-file-directory t)))
 
 ;;;PACKAGE MANAGER
 (when (>= emacs-major-version 24)
   (require 'package)
-  (setq package-archives '(
-			   ("melpa" . "https://melpa.org/packages/")
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                            ("org" . "http://orgmode.org/elpa/")
-			   ("marmalade" . "http://marmalade-repo.org/packages/"))))
+			   ("marmalade" . "http://marmalade-repo.org/packages/")
+                           ("gnu" . "http://elpa.gnu.org/packages/"))))
 (package-initialize)
 
-(require 'evil-org)
-
-;;;org odt
-(eval-after-load "org"
-  '(require 'ox-odt nil t))
-(setq org-tags-column 0)
-
 ;;;ORG
+(require 'evil-org)
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp")
 (require 'org)
@@ -39,14 +27,16 @@
                    "ign"))
 (add-hook 'org-export-before-processing-hook #'org-remove-headlines)
 
+;;;exec path from shell
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
 
+;;;No splash screen
 (setq inhibit-splash-screen t)
 
 ;;;GUI
-(load "~/.emacs.d/my_gui.el")
+(load "my-gui")
 
 ;;;KEYS END OF LINE, BEGIN OF LINE
 (global-set-key (kbd "<s-right>") 'end-of-line )
@@ -59,19 +49,14 @@
         c-default-style "gnu"))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
-;;ruby indent
-(setq ruby-indent-level 4)
-
 ;;;JS
 (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (add-to-list 'load-path "~/.emacs.d/node_modules/tern/emacs")
 (autoload 'tern-mode "tern.el" nil t)
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
-;;;Company Mode auto complete
-(autoload 'company-mode "company" nil t)
-(add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "C-SPC") 'company-complete)
+(load "autocompletion.el")
+(load "ac-analysis-misc.el")
 
 ;;;Compile key
 (global-set-key (kbd "C-c c") 'compile)
@@ -79,131 +64,57 @@
 ;;;YASNIPPET
 (yas-global-mode 1)
 
-;;;NEO-TREE
-;;;f8 for neotree
-(add-to-list 'load-path "~/.emacs.d/neotree/")
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-
-;;;IRONY auto
-;(add-hook 'c++-mode-hook 'irony-mode)
-;(add-hook 'c-mode-hook 'irony-mode)
-;(add-hook 'objc-mode-hook 'irony-mode)
-
-;;;IRONY hook
-;; replace the `completion-at-point' and `complete-symbol' bindings in
-;; irony-mode's buffers by irony-mode's function
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
 ;;;RUST RACER
 (add-hook 'rust-mode-hook 'racer-mode t)
 (setq racer-rust-src-path "/Users/serge-olivieramega/Developer/Open/rustc-1.7.0/src/")
 
-;;;COMPANY-BACKENDS
-(with-eval-after-load 'company
-  ;(add-to-list 'company-backends 'company-irony)
-  (add-to-list 'company-backends 'company-rtags)
-  (add-to-list 'company-backends 'company-sourcekit)
-  (add-to-list 'company-backends 'merlin-company-backend)
-  (add-to-list 'company-backends 'company-css)
-  (add-to-list 'company-backends 'company-tern)
-  (global-set-key (kbd "C-c C-SPC") 'company-yasnippet))
+;;;FLYCHECK swift
+(setq flycheck-swift-sdk-path "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk")
+(with-eval-after-load 'flycheck
+  (add-to-list 'flycheck-checkers 'swift))
 
-;;;company-c-headers
-(require 'company-c-headers)
-(global-set-key (kbd "C-x C-SPC") 'company-c-headers )
-(add-to-list 'company-c-headers-path-system "/usr/local/Cellar/llvm/3.6.2/include/c++/v1")
+(add-hook 'go-mode-hook
+          (lambda ()
+            (setq tab-width 4)
+            (setq standard-indent 4)))
+
+;;;EVIL-LEADER
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
 
 ;;;EVIL-MODE
 (evil-mode 1)
-
-;;;EVIL-LEADER
-(evil-leader-mode 1)
-(evil-leader/set-leader "<SPC>")
 
 ;;;EVIL-MC
 (add-to-list 'load-path "~/.emacs.d/evil-mc")
 (require 'evil-mc)
 
+(add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2)))
+
 ;;;tab for CS3110
 (setq-default indent-tabs-mode nil)
-(setq tab-width 4)
-
-(global-set-key (kbd "C-x c") 'clipboard-kill-region)
-(global-set-key (kbd "C-x v") 'clipboard-yank)
-
-;;;LOCATE BINDING C-c l
-(add-hook 'merlin-mode-hook
-          (lambda () (local-set-key (kbd "C-c l") 'merlin-locate) ))
-
-;;;undo/redo
-(global-set-key (kbd "s-z") 'undo-tree-undo)
-(global-set-key (kbd "s-r") 'undo-tree-redo)
 
 ;;;buffer kill
-(global-set-key (kbd "s-k") 'kill-this-buffer)
+(evil-leader/set-key "kl" 'kill-this-buffer)
 
 ;;;copy/paste
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") 'clipboard-yank)
 
-(require 'rtags)
-(require 'company-rtags)
-(setq rtags-completions-enabled t)
-(defun locate-symbol-at-point ()
-  "locates symbol at current point"
-  (interactive)
-  (cond ((bound-and-true-p c++-mode) (rtags-find-symbol-at-point))
-        ((bound-and-true-p merlin-mode) (merlin-locate))
-        (t (message "cannot locate in this mode"))))
-
-(defun show-symbol-type-at-point ()
-  "shows type for symbol at current point"
-  (interactive)
-  (cond ((bound-and-true-p c++-mode) (rtags-symbol-type))
-        ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
-        (t (message "cannot find symbol type for this mode."))))
-
-
-(defun show-symbol-info-at-point ()
-  "shows type for symbol at current point"
-  (interactive)
-  (cond ((bound-and-true-p c++-mode) (rtags-print-symbol-info))
-        ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
-        (t (message "cannot find symbol info for this mode."))))
-
-(defun show-symbol-summary-at-point ()
-  "shows type for symbol at current point"
-  (interactive)
-  (cond ((bound-and-true-p c++-mode) (rtags-display-summary))
-        ((bound-and-true-p merlin-mode) (merlin-type-enclosing))
-        (t (message "cannot find symbol summary for this mode."))))
-
-;;;EVIL keybindings
-(define-key evil-normal-state-map (kbd "<SPC>rj") 'locate-symbol-at-point)
-(define-key evil-normal-state-map (kbd "<SPC>ri") 'show-symbol-info-at-point)
-
 ;;;EVIL kbd evil-mc
 (global-evil-mc-mode 1)
-(define-key evil-normal-state-map (kbd "zu") 'evil-mc-pause-cursors)
-(define-key evil-normal-state-map (kbd "zi") 'evil-mc-resume-cursors)
-(define-key evil-normal-state-map (kbd "zy") 'evil-mc-make-cursor-here)
-(define-key evil-normal-state-map (kbd "zj") 'evil-mc-undo-all-cursors)
-(define-key evil-normal-state-map (kbd "zk") 'evil-mc-make-all-cursors)
 
+;;;FIND
+(defun find-file-here ()
+  "locates file in current directory"
+  (interactive)
+  (find-file "."))
+(evil-leader/set-key "f" 'find-file-here)
+
+;;;Key Chord
 (setq key-chord-two-keys-delay 0.5)
 (key-chord-define evil-insert-state-map (kbd "jj") 'evil-force-normal-state)
 (key-chord-mode 1)
-
-;;g p --> rtags prev
-;;g o --> rtags next
-
 
 ;;;highlight paren
 (global-highlight-parentheses-mode)
@@ -217,14 +128,5 @@
             (toggle-truncate-lines -1)
             (visual-line-mode 1)))
 
-;;;cmake-ide
-;(add-to-list 'load-path "~/.emacs.d/cmIDE/cmake-ide/")
-;(require 'cmake-ide)
-;(cmake-ide-setup)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;Other stuff:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;CUSTOM
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)

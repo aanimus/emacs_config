@@ -1,5 +1,7 @@
 auto-save-list
 
+lisp/init-circe*
+
 #run irony-install-server to compile irony server
 irony
 
@@ -10,3 +12,5 @@ eshell/history/
 eshell/**
 
 elpa/archives/melpa/archive-contents
+
+ido.last

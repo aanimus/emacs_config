@@ -7,6 +7,8 @@
         evil-force-normal-state
         evil-forward-char
         evil-insert
+        evil-mc-make-all-cursors
+        evil-mc-undo-all-cursors
         evil-normal-state
         evil-previous-line
         ))
@@ -14,5 +16,6 @@
 (setq mc/cmds-to-run-once
       '(
         evil-ex
+        evil-join
         evil-next-line
         ))
