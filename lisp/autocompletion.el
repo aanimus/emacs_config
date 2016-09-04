@@ -10,11 +10,17 @@
 (global-set-key (kbd "C-x C-SPC") 'company-c-headers )
 (add-to-list 'company-c-headers-path-system "/usr/local/Cellar/llvm/3.6.2/include/c++/v1")
 
+(require 'merlin)
+(setq opam-share (substring (shell-command-to-string "opam config var
+   share 2> /dev/null") 0 -1))
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
 
 ;;;COMPANY-BACKENDS
 (require 'rtags)
 (require 'company-sourcekit)
 (require 'company-go)
+
+(setq rtags-completions-enabled t)
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-go)
   ;(add-to-list 'company-backends 'company-irony)
@@ -27,9 +33,9 @@
 
 
 ;;;IRONY auto
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
+;(add-hook 'c++-mode-hook 'irony-mode)
+;(add-hook 'c-mode-hook 'irony-mode)
+;(add-hook 'objc-mode-hook 'irony-mode)
 
 
 ;;;IRONY hook

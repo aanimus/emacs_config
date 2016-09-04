@@ -55,9 +55,6 @@
 (autoload 'tern-mode "tern.el" nil t)
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 
-(load "autocompletion.el")
-(load "ac-analysis-misc.el")
-
 ;;;Compile key
 (global-set-key (kbd "C-c c") 'compile)
 
@@ -82,6 +79,19 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 
+;;;FIND
+(defun find-file-here ()
+  "locates file in current directory"
+  (interactive)
+  (find-file "."))
+(evil-leader/set-key "f" 'find-file-here)
+
+;;;buffer kill
+(evil-leader/set-key "kl" 'kill-this-buffer)
+
+;;;compile
+(evil-leader/set-key "cc" 'compile)
+
 ;;;EVIL-MODE
 (evil-mode 1)
 
@@ -89,13 +99,14 @@
 (add-to-list 'load-path "~/.emacs.d/evil-mc")
 (require 'evil-mc)
 
+(load "autocompletion.el")
+(load "ac-analysis-misc.el")
+(load "switch-screen.el")
+
 (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2)))
 
 ;;;tab for CS3110
 (setq-default indent-tabs-mode nil)
-
-;;;buffer kill
-(evil-leader/set-key "kl" 'kill-this-buffer)
 
 ;;;copy/paste
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
@@ -103,13 +114,6 @@
 
 ;;;EVIL kbd evil-mc
 (global-evil-mc-mode 1)
-
-;;;FIND
-(defun find-file-here ()
-  "locates file in current directory"
-  (interactive)
-  (find-file "."))
-(evil-leader/set-key "f" 'find-file-here)
 
 ;;;Key Chord
 (setq key-chord-two-keys-delay 0.5)
