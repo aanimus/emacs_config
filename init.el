@@ -15,6 +15,8 @@
                            ("gnu" . "http://elpa.gnu.org/packages/"))))
 (package-initialize)
 
+(defalias 'ff 'find-file)
+
 ;;;ORG
 (require 'evil-org)
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
@@ -86,11 +88,12 @@
   (find-file "."))
 (evil-leader/set-key "f" 'find-file-here)
 
-;;;buffer kill
-(evil-leader/set-key "kl" 'kill-this-buffer)
-
 ;;;compile
 (evil-leader/set-key "cc" 'compile)
+
+;;;back, next buffer
+(evil-leader/set-key "h" 'previous-buffer)
+(evil-leader/set-key "l" 'next-buffer)
 
 ;;;EVIL-MODE
 (evil-mode 1)
@@ -102,6 +105,7 @@
 (load "autocompletion.el")
 (load "ac-analysis-misc.el")
 (load "switch-screen.el")
+(load "my-git.el")
 
 (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2)))
 

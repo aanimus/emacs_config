@@ -25,20 +25,21 @@
   (add-to-list 'company-backends 'company-go)
   ;(add-to-list 'company-backends 'company-irony)
   (add-to-list 'company-backends 'company-rtags)
+  ;(add-to-list 'company-backends 'company-gtags)
   (add-to-list 'company-backends 'company-sourcekit)
   (add-to-list 'company-backends 'merlin-company-backend)
   (add-to-list 'company-backends 'company-css)
   (add-to-list 'company-backends 'company-tern)
+  (add-to-list 'company-backends 'company-jedi)
   (global-set-key (kbd "C-c C-SPC") 'company-yasnippet))
 
 
-;;;IRONY auto
+;;;IRONY =============
+
 ;(add-hook 'c++-mode-hook 'irony-mode)
 ;(add-hook 'c-mode-hook 'irony-mode)
 ;(add-hook 'objc-mode-hook 'irony-mode)
 
-
-;;;IRONY hook
 ;; replace the `completion-at-point' and `complete-symbol' bindings in
 ;; irony-mode's buffers by irony-mode's function
 (defun my-irony-mode-hook ()
